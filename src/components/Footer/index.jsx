@@ -1,5 +1,5 @@
 import React from "react";
-import package from "../../../package.json";
+import packageJSON from "../../../package.json";
 
 const Footer = () => {
     return (
@@ -8,8 +8,8 @@ const Footer = () => {
                 Todos os direitos reservados {" "}
                 <a target="_blank" href="https://github.com/RuivoTech">
                     RuivoTech
-                </a>
-                <span className="h6 text-secondary">Versão {package.version}</span>
+                </a><br />
+                <span className="h6 text-secondary">Versão {packageJSON.version}</span>
             </p>
 
         </footer>
