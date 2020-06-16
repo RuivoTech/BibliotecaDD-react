@@ -57,6 +57,9 @@ const Menu = () => {
                         <li className="nav-item">
                             <Link className="dropdown-item" to="/usuarios">Usuários</Link>
                         </li> : null}
+                    <li className="nav-item">
+                        <Link className="dropdown-item" to="/perfil">Perfil</Link>
+                    </li>
                 </ul>
                 <ul className="navbar-nav ml-auto nav-flex-icons">
                     <li className="nav-item avatar">

@@ -4,11 +4,13 @@ export const rotas = {
         "/retiradas",
         "/usuarios",
         "/dashboard",
-        "/logs"
+        "/logs",
+        "/perfil"
     ],
     "normal": [
         "/dashboard",
         "/livros",
-        "/retiradas"
+        "/retiradas",
+        "/perfil"
     ]
 }

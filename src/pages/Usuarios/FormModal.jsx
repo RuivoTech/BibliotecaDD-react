@@ -54,8 +54,6 @@ const FormModal = ({ show, handleShow, data }) => {
         } catch (erro) {
             console.log(erro);
         }
-
-
     }
 
     return (
@@ -118,8 +116,8 @@ const FormModal = ({ show, handleShow, data }) => {
                         </div>
                         <div className="col-sm-4 col-lg-4">
                             <div className="form-group">
-                                <label htmlFor="permissao">Permissão:</label>
-                                <select name="permissao" value={usuario?.permissao} className="custom-select" onChange={handeChange}>
+                                <label htmlFor="nivel">Nível:</label>
+                                <select name="nivel" value={usuario?.nivel} className="custom-select" onChange={handeChange}>
                                     <option value="1">Normal</option>
                                     <option value="2">Admin</option>
                                 </select>
