@@ -13,6 +13,8 @@ const Livros = () => {
     const [show, setShow] = useState(false);
     const [showRelatorio, setShowRelatorio] = useState(false);
     const [livroSelecionado, setLivroSelecionado] = useState({});
+    const [mensagem, setMensagem] = useState("");
+    const [className, setClassName] = useState("");
 
     useEffect(() => {
         const requisicao = async () => {
@@ -28,7 +30,7 @@ const Livros = () => {
         }
 
         requisicao();
-    }, []);
+    }, [show]);
 
     const handleChangePesquisa = event => {
         const filtroLivros = livros.filter((livro) => {
@@ -45,8 +47,27 @@ const Livros = () => {
         setShow(!show);
     }
 
-    const handleRemover = (id) => {
-        console.log("OK", id);
+    const handleRemover = async (id) => {
+        const token = getSession();
+        await api.delete("livros/" + id, {
+            headers: {
+                Authorization: `Bearer ${token.token}`
+            }
+        }).then(response => {
+            if (response.data.error) {
+                setMensagem(response.data.error);
+                setClassName("bg-danger");
+            } else {
+                setMensagem("Livro removido com sucesso!");
+                setClassName("bg-success");
+                setLivros(response.data);
+                setLivrosFiltrados(response.data);
+            }
+
+        });
+        setTimeout(() => {
+            setMensagem("");
+        }, 5000)
     }
 
     const renderOpcoes = (item) => {
@@ -84,6 +105,12 @@ const Livros = () => {
                             <Coluna campo="tipo" titulo="Tipo" tamanho="3" corpo={(item) => item.tipo === 1 ? "Normal" : "Engenharia"} />
                             <Coluna titulo="Opções" corpo={(item) => renderOpcoes(item)} tamanho="5" />
                         </Tabela>
+                        {mensagem &&
+                            <div className={className + " d-flex justify-content-center align-items-center rounded w-50"} style={{ maxHeight: "10vh" }}>
+                                <p className="text-white" style={{ fontSize: 20 }}>
+                                    {mensagem}
+                                </p>
+                            </div>}
                     </div>
                 </div>
             </div>

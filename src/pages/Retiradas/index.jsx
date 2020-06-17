@@ -13,6 +13,8 @@ const Retiradas = () => {
     const [show, setShow] = useState(false);
     const [showRelatorio, setShowRelatorio] = useState(false);
     const [retiradaSelecionada, setRetiradaSelecionada] = useState({});
+    const [mensagem, setMensagem] = useState("");
+    const [className, setClassName] = useState("");
 
     useEffect(() => {
         const requisicao = async () => {
@@ -28,7 +30,7 @@ const Retiradas = () => {
         }
 
         requisicao();
-    }, []);
+    }, [show]);
 
     const handleChangePesquisa = event => {
         const filtroRetiradas = retiradas.filter((retirada) => {
@@ -45,8 +47,28 @@ const Retiradas = () => {
         setShow(!show);
     }
 
-    const handleRemover = (id) => {
-        console.log("OK", id);
+    const handleRemover = async (id) => {
+        const token = getSession();
+        await api.delete("retiradas/" + id, {
+            headers: {
+                Authorization: `Bearer ${token.token}`
+            }
+        }).then(response => {
+            if (response.data.error) {
+                setMensagem(response.data.error);
+                setClassName("bg-danger");
+            } else {
+                setMensagem("Retirada removida com sucesso!");
+                setClassName("bg-success");
+                setRetiradas(response.data);
+                setRetiradasFiltradas(response.data);
+            }
+
+        });
+
+        setTimeout(() => {
+            setMensagem("");
+        }, 5000);
     }
 
     const renderOpcoes = (item) => {
@@ -86,6 +108,12 @@ const Retiradas = () => {
                             <Coluna campo="livro" titulo="Livro" tamanho="10" />
                             <Coluna titulo="Opções" corpo={(item) => renderOpcoes(item)} tamanho="5" />
                         </Tabela>
+                        {mensagem &&
+                            <div className={className + " d-flex justify-content-center align-items-center rounded w-50"} style={{ maxHeight: "10vh" }}>
+                                <p className="text-white" style={{ fontSize: 20 }}>
+                                    {mensagem}
+                                </p>
+                            </div>}
                     </div>
                 </div>
             </div>

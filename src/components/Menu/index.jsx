@@ -32,7 +32,7 @@ const Menu = () => {
         const session = getSession();
         const token = jwt.decode(session.token);
         const level = token.nivel === 2 ? "admin" : "normal";
-        console.log(level)
+
         setNivel(level)
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

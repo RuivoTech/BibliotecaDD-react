@@ -125,7 +125,7 @@ const FormModal = ({ show, handleShow, data }) => {
                             </p>
                         </div>}
                     {retorno &&
-                        <div className={"bg-" + retorno.className + " align-middle rounded"} style={{ minWidth: "30em", left: "1em", top: "10em", position: "absolute" }}>
+                        <div className={"bg-" + retorno.className + " align-middle rounded"} style={{ minWidth: "30em", left: "1em", position: "absolute" }}>
                             <p className="text-white px-2 align-middle" style={{ fontSize: 20 }}>
                                 {retorno.mensagem}
                             </p>

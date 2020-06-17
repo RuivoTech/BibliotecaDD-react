@@ -13,6 +13,8 @@ const Usuarios = () => {
     const [show, setShow] = useState(false);
     const [showRelatorio, setShowRelatorio] = useState(false);
     const [usuarioSelecionado, setUsuarioSelecionado] = useState({});
+    const [mensagem, setMensagem] = useState("");
+    const [className, setClassName] = useState("");
 
     useEffect(() => {
         const requisicao = async () => {
@@ -28,7 +30,7 @@ const Usuarios = () => {
         }
 
         requisicao();
-    }, []);
+    }, [show]);
 
     const handleChangePesquisa = event => {
         const filtroUsuarios = usuarios.filter((usuario) => {
@@ -45,8 +47,28 @@ const Usuarios = () => {
         setShow(!show);
     }
 
-    const handleRemover = (id) => {
-        console.log("OK", id);
+    const handleRemover = async (id) => {
+        const token = getSession();
+        await api.delete("usuarios/" + id, {
+            headers: {
+                Authorization: `Bearer ${token.token}`
+            }
+        }).then(response => {
+            if (response.data.error) {
+                setMensagem(response.data.error);
+                setClassName("bg-danger");
+            } else {
+                setMensagem("Usuário removido com sucesso!");
+                setClassName("bg-success");
+                setUsuarios(response.data);
+                setUsuariosFiltrados(response.data);
+            }
+
+        });
+
+        setTimeout(() => {
+            setMensagem("");
+        }, 5000);
     }
 
     const renderOpcoes = (item) => {
@@ -79,12 +101,18 @@ const Usuarios = () => {
 
                         <Tabela data={usuariosFiltrados} titulo="Usuários" mostrarBotaoNovo={true} tituloBotao="Novo usuário" handleShow={handleShow}>
                             <Coluna campo="id" titulo="#" tamanho="1" />
-                            <Coluna campo="nome" titulo="Nome" tamanho="10" />
-                            <Coluna campo="nomeUsuario" titulo="Nome de usuário" tamanho="10" />
-                            <Coluna campo="email" titulo="E-mail" tamanho="10" />
-                            <Coluna campo="nivel" titulo="Nivel" tamanho="3" corpo={(item) => item.nivel === 1 ? "Normal" : "Admin"} />
+                            <Coluna campo="nome" titulo="Nome" tamanho="7" />
+                            <Coluna campo="nomeUsuario" titulo="Nome de usuário" tamanho="7" />
+                            <Coluna campo="email" titulo="E-mail" tamanho="7" />
+                            <Coluna campo="nivel" titulo="Nivel" tamanho="3" corpo={(item) => item.nivel === 2 ? "Admin" : "Normal"} />
                             <Coluna titulo="Opções" corpo={(item) => renderOpcoes(item)} tamanho="5" />
                         </Tabela>
+                        {mensagem &&
+                            <div className={className + " d-flex justify-content-center align-items-center rounded w-50"} style={{ maxHeight: "10vh" }}>
+                                <p className="text-white" style={{ fontSize: 20 }}>
+                                    {mensagem}
+                                </p>
+                            </div>}
                     </div>
                 </div>
             </div>

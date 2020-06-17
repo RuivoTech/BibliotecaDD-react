@@ -86,6 +86,7 @@ const FormModal = ({ show, handleShow, data }) => {
                                     name="nome"
                                     value={usuario?.nome}
                                     onChange={handeChange}
+                                    required
                                 />
                             </div>
                         </div>
@@ -98,6 +99,7 @@ const FormModal = ({ show, handleShow, data }) => {
                                     name="nomeUsuario"
                                     value={usuario?.nomeUsuario}
                                     onChange={handeChange}
+                                    required
                                 />
                             </div>
                         </div>
@@ -111,13 +113,14 @@ const FormModal = ({ show, handleShow, data }) => {
                                     name="email"
                                     value={usuario?.email}
                                     onChange={handeChange}
+                                    required
                                 />
                             </div>
                         </div>
                         <div className="col-sm-4 col-lg-4">
                             <div className="form-group">
                                 <label htmlFor="nivel">Nível:</label>
-                                <select name="nivel" value={usuario?.nivel} className="custom-select" onChange={handeChange}>
+                                <select name="nivel" value={usuario?.nivel} className="custom-select" onChange={handeChange} required>
                                     <option value="1">Normal</option>
                                     <option value="2">Admin</option>
                                 </select>

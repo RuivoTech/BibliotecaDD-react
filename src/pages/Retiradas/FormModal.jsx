@@ -32,11 +32,32 @@ const FormModal = ({ show, handleShow, data }) => {
         }
 
         request();
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setRetorno({})
+        }, 5000);
+    }, [retorno])
+
+    const handleChange = event => {
+        setRetirada({
+            ...retirada,
+            [event.target.name]: event.target.value
+        });
+    }
 
     const handleClick = (item) => {
         setLivrosRetirada([...livrosRetirada, item]);
         setValue("");
+    }
+
+    const handleClickLivro = (item) => {
+        setRetirada({
+            ...retirada,
+            livro: item.nome,
+            id_livroRetirada: item.id_livro
+        });
     }
 
     const handleValue = event => {
@@ -56,7 +77,7 @@ const FormModal = ({ show, handleShow, data }) => {
             if (retirada.id_retirada > 0) {
                 request = await api.put("retiradas", retirada, opcoes)
             } else {
-                request = await api.post("retiradas", retirada, opcoes);
+                request = await api.post("retiradas", { retirada, livros_retirada: livrosRetirada }, opcoes);
             }
 
             if (request.data.error) {
@@ -73,6 +94,10 @@ const FormModal = ({ show, handleShow, data }) => {
         } catch (erro) {
             console.log(erro);
         }
+
+        setTimeout(() => {
+            setRetorno({});
+        }, 5000)
     }
 
     return (
@@ -85,57 +110,76 @@ const FormModal = ({ show, handleShow, data }) => {
                             <div className="form-group">
                                 <label htmlFor="id_retirada">ID:</label>
                                 <input className="form-control" type="text" id="id_retirada" name="id_retirada" value={retirada?.id_retirada}
-                                    onChange={() => { }} disabled />
+                                    onChange={handleChange} disabled />
                             </div>
                         </div>
                         <div className="col-sm-3 col-lg-3">
                             <div className="form-group">
                                 <label htmlFor="ra">RA:</label>
                                 <input className="form-control" type="text" id="ra" name="ra" value={retirada?.ra}
-                                    onChange={() => { }} />
+                                    onChange={handleChange} />
                             </div>
                         </div>
                         <div className="col-sm-7 col-lg-7">
                             <div className="form-group">
                                 <label htmlFor="nome">Nome:</label>
                                 <input className="form-control" type="text" id="nome" name="nome" value={retirada?.nome}
-                                    onChange={() => { }} />
+                                    onChange={handleChange} />
                             </div>
                         </div>
                         <div className="col-sm-6 col-lg-6">
                             <div className="form-group">
-                                <label htmlFor="curso">Curos:</label>
+                                <label htmlFor="curso">Curso:</label>
                                 <input className="form-control" type="text" id="curso" name="curso" value={retirada?.curso}
-                                    onChange={() => { }} />
+                                    onChange={handleChange} />
                             </div>
                         </div>
                         <div className="col-sm-2 col-lg-2">
                             <div className="form-group">
                                 <label htmlFor="semestre">Semestre:</label>
                                 <input className="form-control" type="text" id="semestre" name="semestre" value={retirada?.semestre}
-                                    onChange={() => { }} />
+                                    onChange={handleChange} />
                             </div>
                         </div>
                         <div className="col-sm-4 col-lg-4">
                             <div className="form-group">
                                 <label htmlFor="data_retirada">Data Retirada:</label>
                                 <input className="form-control" type="date" id="data_retirada" name="data_retirada" value={retirada?.data_retirada}
-                                    onChange={() => { }} />
+                                    onChange={handleChange} />
                             </div>
                         </div>
-                        <div className="col-sm-8 col-md-8 col-lg-8 my-4">
-                            <label htmlFor="livros">Adicionar livro:</label>
-                            <Autocomplete className="form-control" id="livros" name="livros" suggestions={livros}
-                                onClick={(item) => handleClick(item)}
-                                field="nome" value={value} onChange={handleValue} />
-                        </div>
-                        <div className="row col-md-12" style={{ maxHeight: "50vh" }}>
-                            <Tabela titulo="Novos livros" data={livrosRetirada}>
-                                <Coluna campo="id_livro" titulo="#" tamanho="1" />
-                                <Coluna campo="nome" titulo="Nome" tamanho="10" />
-                                <Coluna campo="autor" titulo="Autor" tamanho="10" />
-                            </Tabela>
-                        </div>
+                        {!data.id_retirada ?
+                            <>
+                                <div className="col-sm-8 col-md-8 col-lg-8 my-4">
+                                    <label htmlFor="livros">Adicionar livro:</label>
+                                    <Autocomplete className="form-control" id="livros" name="livros" suggestions={livros}
+                                        onClick={(item) => handleClick(item)}
+                                        field="nome" value={value} onChange={handleValue} />
+                                </div>
+                                <div className="row col-md-12" style={{ maxHeight: "50vh" }}>
+                                    <Tabela titulo="Novos livros" data={livrosRetirada}>
+                                        <Coluna campo="id_livro" titulo="#" tamanho="1" />
+                                        <Coluna campo="nome" titulo="Nome" tamanho="10" />
+                                        <Coluna campo="autor" titulo="Autor" tamanho="10" />
+                                    </Tabela>
+                                </div>
+                            </> :
+                            <>
+                                <div className="col-sm-8 col-md-8 col-lg-8">
+                                    <label htmlFor="livro">Livro:</label>
+                                    <Autocomplete className="form-control" id="livro" name="livro" suggestions={livros}
+                                        onClick={(item) => handleClickLivro(item)}
+                                        field="nome" value={retirada.livro} onChange={handleChange} />
+                                </div>
+                                <div className="col-sm-2 col-md-2 col-lg-2">
+                                    <div className="form-group">
+                                        <label htmlFor="id_livroRetirada">ID:</label>
+                                        <input className="form-control" type="text" id="id_livroRetirada" name="id_livroRetirada" value={retirada?.id_livroRetirada}
+                                            onChange={handleChange} disabled />
+                                    </div>
+                                </div>
+                            </>
+                        }
                     </div>
                 </ModalBody>
                 <ModalFooter>
@@ -161,7 +205,7 @@ const FormModal = ({ show, handleShow, data }) => {
                             </p>
                         </div>}
                     {retorno &&
-                        <div className={"bg-" + retorno.className + " align-middle rounded"} style={{ minWidth: "30em", left: "1em", top: "10em", position: "absolute" }}>
+                        <div className={"bg-" + retorno.className + " align-middle rounded"} style={{ minWidth: "30em", left: "1em", position: "absolute" }}>
                             <p className="text-white px-2 align-middle" style={{ fontSize: 20 }}>
                                 {retorno.mensagem}
                             </p>
