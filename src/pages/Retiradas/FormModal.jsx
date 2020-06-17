@@ -42,7 +42,7 @@ const FormModal = ({ show, handleShow, data }) => {
 
     useEffect(() => {
         setLivrosRetirada([]);
-    }, [show])
+    }, [handleShow])
 
     const handleChange = event => {
         setRetirada({
