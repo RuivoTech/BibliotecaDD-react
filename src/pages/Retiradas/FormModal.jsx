@@ -90,6 +90,8 @@ const FormModal = ({ show, handleShow, data }) => {
                     mensagem: "Retirada cadastrada com sucesso",
                     className: "success"
                 });
+                setRetirada({});
+                setLivrosRetirada([])
             }
         } catch (erro) {
             console.log(erro);

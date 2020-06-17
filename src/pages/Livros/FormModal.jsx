@@ -51,6 +51,7 @@ const FormModal = ({ show, handleShow, data }) => {
                     mensagem: "Livro cadastrado com sucesso",
                     className: "success"
                 });
+                setLivro({});
             }
         } catch (erro) {
             console.log(erro);
