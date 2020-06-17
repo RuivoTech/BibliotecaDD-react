@@ -72,7 +72,7 @@ const Tabela = ({ titulo, tituloBotao, mostrarBotaoNovo, data, handleShow, heigh
                                     className="btn btn-outline-primary"
                                     type="button"
                                     title={tituloBotao}
-                                    onClick={handleShow}>
+                                    onClick={() => handleShow({})}>
                                     {tituloBotao}
                                 </button>&nbsp;
                         </div> : null}
