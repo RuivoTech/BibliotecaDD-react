@@ -95,17 +95,20 @@ const FormModal = ({ show, handleShow, data }) => {
                         <div className="col-sm-4 col-lg-4">
                             <div className="form-group">
                                 <label htmlFor="tipo">Tipo:</label>
-                                <select name="tipo" value={livro?.tipo} className="custom-select" onChange={handeChange}>
-                                    <option value="1">Normal</option>
-                                    <option value="0">Engenharia</option>
+                                <select name="tipo" value={livro?.tipo} className="custom-select" onChange={handeChange} required>
+                                    <option>Selecione um tipo...</option>
+                                    <option value="Normal">Normal</option>
+                                    <option value="Engenharia">Engenharia</option>
+                                    <option value="Gastronomia">Gastronomia</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </ModalBody>
                 <ModalFooter>
-                    {livro.criadoPor && livro.alteradoPor &&
-                        <div style={{ left: "1em", position: "absolute" }}>
+                    <div style={{ left: "1em", position: "absolute" }}>
+                        {livro.criadoPor &&
+
                             <p className="h6 -text-dark">Criado por:
                                 <span className="text-primary">
                                     {livro.criadoPor}
@@ -114,7 +117,8 @@ const FormModal = ({ show, handleShow, data }) => {
                                 <span className="text-primary">
                                     {Utils.converteData(livro, "dataCriado", "DD/MM/YYYY")}
                                 </span>
-                            </p>
+                            </p>}
+                        {livro.alteradoPor &&
                             <p className="h6 -text-dark">Alterado por:
                                 <span className="text-primary">
                                     {livro.alteradoPor}
@@ -124,7 +128,8 @@ const FormModal = ({ show, handleShow, data }) => {
                                     {Utils.converteData(livro, "dataAlterado", "DD/MM/YYYY")}
                                 </span>
                             </p>
-                        </div>}
+                        }
+                    </div>
                     {retorno &&
                         <div className={"bg-" + retorno.className + " align-middle rounded"} style={{ minWidth: "30em", left: "1em", position: "absolute" }}>
                             <p className="text-white px-2 align-middle" style={{ fontSize: 20 }}>
