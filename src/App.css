@@ -21,6 +21,10 @@ h1,h2,h3,h4,h5,h6,label,span {
   font-family: Ubuntu;
 }
 
+#root {
+  min-height: 100vh;
+}
+
 .btn, .form-control, .custom-select {
   font-size: 1.4rem;
 }
