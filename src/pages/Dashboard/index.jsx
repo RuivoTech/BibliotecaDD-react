@@ -56,7 +56,7 @@ const Dashboard = () => {
 
                     <div className="row " style={{ height: "76vh" }}>
                         <div className="col-sm-6 col-md-6 col-lg-6">
-                            <div className="h1 text-center">Livros mais retirados</div>
+                            <h3 className="h1 text-center">Livros mais retirados</h3>
                             <BarChart width={width} height={height} data={data}>
                                 <XAxis dataKey="nome" hide={true} />
                                 <YAxis />
@@ -66,9 +66,13 @@ const Dashboard = () => {
                             </BarChart>
                         </div>
                         <div className="col-sm-6 col-md-6 col-lg-6">
-                            <Tabela data={livros} titulo="Livos em baixa quantidade" corLinha={(item) => selecionarClassName(item)}>
+                            <Tabela
+                                data={livros}
+                                titulo="Livros em baixa quantidade"
+                                corLinha={(item) => selecionarClassName(item)}
+                            >
                                 <Coluna campo="id_livro" titulo="#" tamanho="2" />
-                                <Coluna campo="nome" titulo="Nome" tamanho="15" />
+                                <Coluna campo="nome" titulo="Nome" tamanho="10" />
                                 <Coluna campo="quantidade" titulo="Quantidade" tamanho="3" />
                                 <Coluna campo="tipo" titulo="Tipo" tamanho="3" />
                             </Tabela>

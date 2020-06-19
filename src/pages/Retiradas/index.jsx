@@ -96,16 +96,21 @@ const Retiradas = () => {
                 />
             </nav>
             <div className="mx-2 pb-5">
-                <div className="card align-items-center" style={{ height: "80vh" }}>
-                    <div className="row col-12">
-
-                        <Tabela data={retiradasFiltradas} titulo="Retiradas" mostrarBotaoNovo={true} tituloBotao="Nova retirada" handleShow={handleShow}>
+                <div className="card align-items-center" style={{ height: "76vh" }}>
+                    <div className="col-12">
+                        <Tabela
+                            data={retiradasFiltradas}
+                            titulo="Retiradas"
+                            mostrarBotaoNovo={true}
+                            tituloBotao="Nova retirada"
+                            handleShow={handleShow}
+                        >
                             <Coluna campo="id_retirada" titulo="#" tamanho="1" />
                             <Coluna campo="ra" titulo="RA" tamanho="2" />
-                            <Coluna campo="nome" titulo="Nome" tamanho="10" />
-                            <Coluna campo="curso" titulo="Curso" tamanho="3" />
-                            <Coluna campo="semestre" titulo="Semestre" tamanho="3" />
-                            <Coluna campo="livro" titulo="Livro" tamanho="10" />
+                            <Coluna campo="nome" titulo="Nome" tamanho="7" />
+                            <Coluna campo="curso" titulo="Curso" tamanho="2" />
+                            <Coluna campo="semestre" titulo="Semestre" tamanho="2" />
+                            <Coluna campo="livro" titulo="Livro" tamanho="7" />
                             <Coluna titulo="Opções" corpo={(item) => renderOpcoes(item)} tamanho="5" />
                         </Tabela>
                         {mensagem &&

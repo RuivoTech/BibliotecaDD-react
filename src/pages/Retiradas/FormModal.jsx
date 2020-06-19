@@ -48,7 +48,15 @@ const FormModal = ({ show, handleShow, data }) => {
     }
 
     const handleClick = (item) => {
-        setLivrosRetirada([...livrosRetirada, item]);
+        const livroRetirada = livrosRetirada.findIndex(livro => livro.id_livro === item.id_livro);
+
+        if (livroRetirada >= 0) {
+            const livrosFiltrados = livrosRetirada.filter(livro => livro.id_livro !== item.id_livro);
+
+            setLivrosRetirada(livrosFiltrados);
+        } else {
+            setLivrosRetirada([...livrosRetirada, item])
+        }
         setValue("");
     }
 
@@ -100,6 +108,12 @@ const FormModal = ({ show, handleShow, data }) => {
         }, 5000)
     }
 
+    const renderOpcoes = (item) => {
+        return (
+            <button className="btn btn-danger btn-sm" onClick={() => handleClick(item)}>Remover</button>
+        )
+    }
+
     return (
         <>
             <Modal isOpen={show} toggle={handleShow} className="modal-lg">
@@ -130,7 +144,13 @@ const FormModal = ({ show, handleShow, data }) => {
                         <div className="col-sm-6 col-lg-6">
                             <div className="form-group">
                                 <label htmlFor="curso">Curso:</label>
-                                <input className="form-control" type="text" id="curso" name="curso" value={retirada?.curso}
+                                <input
+                                    className="form-control"
+                                    type="text"
+                                    id="curso"
+                                    name="curso"
+                                    value={retirada?.curso}
+                                    style={{ textTransform: "uppercase" }}
                                     onChange={handleChange} />
                             </div>
                         </div>
@@ -156,11 +176,12 @@ const FormModal = ({ show, handleShow, data }) => {
                                         onClick={(item) => handleClick(item)}
                                         field="nome" value={value} onChange={handleValue} />
                                 </div>
-                                <div className="row col-md-12" style={{ maxHeight: "50vh" }}>
-                                    <Tabela titulo="Novos livros" data={livrosRetirada}>
+                                <div className="col-md-12" style={{ maxHeight: "50vh" }}>
+                                    <Tabela data={livrosRetirada} maxHeight="20vh">
                                         <Coluna campo="id_livro" titulo="#" tamanho="1" />
-                                        <Coluna campo="nome" titulo="Nome" tamanho="10" />
-                                        <Coluna campo="autor" titulo="Autor" tamanho="10" />
+                                        <Coluna campo="nome" titulo="Nome" tamanho="7" />
+                                        <Coluna campo="autor" titulo="Autor" tamanho="7" />
+                                        <Coluna campo="id_livro" titulo="Opções" tamanho="2" corpo={(item) => renderOpcoes(item)} />
                                     </Tabela>
                                 </div>
                             </> :

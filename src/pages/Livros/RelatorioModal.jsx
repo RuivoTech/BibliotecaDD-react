@@ -55,6 +55,18 @@ const RelatorioModal = ({ show, handleShow }) => {
                                 />
                                 <label className="custom-control-label" for="normal">Normal</label>
                             </div>
+                            <div className="custom-control custom-radio">
+                                <input
+                                    className="custom-control-input"
+                                    id="gastronomia"
+                                    name="tipo"
+                                    type="radio"
+                                    value="gastronomia"
+                                    checked={tipo === "gastronomia"}
+                                    onClick={handleChange}
+                                />
+                                <label className="custom-control-label" for="gastronomia">Gastronomia</label>
+                            </div>
                         </div>
                     </div>
                 </ModalBody>

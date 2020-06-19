@@ -130,7 +130,7 @@ const Relatorio = () => {
                                             <Text style={styles.tableCell}>{item.quantidade}</Text>
                                         </View>
                                         <View style={[styles.tableCol, { width: "30vh" }]}>
-                                            <Text style={styles.tableCell}>{item.tipo === 0 ? "Engenharia" : "Normal"}</Text>
+                                            <Text style={styles.tableCell}>{item.tipo}</Text>
                                         </View>
                                     </View>
                                 </>
