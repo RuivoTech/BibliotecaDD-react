@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 
-const Tabela = ({ titulo, tituloBotao, mostrarBotaoNovo, data, handleShow, height, corLinha, children = [] }) => {
+const Tabela = ({ titulo, tituloBotao, mostrarBotaoNovo, data, handleShow, height, corLinha, maxHeight, children = [] }) => {
     const [items, setItems] = useState([]);
     const [paginaAtual, setPaginaAtual] = useState(1);
     const [contador, setContador] = useState(0);
@@ -63,30 +63,31 @@ const Tabela = ({ titulo, tituloBotao, mostrarBotaoNovo, data, handleShow, heigh
     return (
         <>
             <div className="ibox float-e-margins mb-0">
-                <div className="ibox-title">
-                    <h5 className="pt">{titulo}</h5>
-                    <div className="ibox-tools">
-                        {mostrarBotaoNovo ?
-                            <div className="button-group">
-                                <button
-                                    className="btn btn-outline-primary"
-                                    type="button"
-                                    title={tituloBotao}
-                                    onClick={() => handleShow({})}>
-                                    {tituloBotao}
-                                </button>&nbsp;
+                {titulo &&
+                    <div className="ibox-title">
+                        <div className="h1 pull-left">{titulo}</div>
+                        <div className="ibox-tools">
+                            {mostrarBotaoNovo ?
+                                <div className="button-group">
+                                    <button
+                                        className="btn btn-outline-primary"
+                                        type="button"
+                                        title={tituloBotao}
+                                        onClick={() => handleShow({})}>
+                                        {tituloBotao}
+                                    </button>&nbsp;
                         </div> : null}
-                    </div>
-                </div>
+                        </div>
+                    </div>}
                 <div className="ibox-content">
                     <div className="table-responsive">
                         <div className="dataTables_wrapper">
                             <div className="overflow-auto" style={height}>
-                                <table className="table table-sm table-striped table-hover" style={{ maxHeight: "32em" }}>
+                                <table className="table table-sm table-striped table-hover" style={maxHeight ? { maxHeight } : { maxHeight: "52vh" }}>
                                     <thead className="thead-light">
                                         <tr role="row">
                                             {children.map((child) => {
-                                                return (<td key={child.props.titulo} style={{ width: child.props.tamanho + "em" }}>{child.props.titulo}</td>)
+                                                return (<td key={child.props.titulo} style={{ width: child.props.tamanho + "vw" }}>{child.props.titulo}</td>)
                                             })}
                                         </tr>
                                     </thead>

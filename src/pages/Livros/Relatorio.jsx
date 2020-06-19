@@ -84,7 +84,7 @@ const Relatorio = () => {
     }, []);
 
     return (
-        <PDFViewer width="100%" height="100%" onLoadError={(error) => alert('Error while loading document! ' + error.message)}>
+        <PDFViewer width="100%" height={window.innerHeight + 'px'} onLoadError={(error) => alert('Error while loading document! ' + error.message)}>
             <Document
                 title="Relatório de livros"
                 onLoadError={(error) => alert('Error while loading document! ' + error.message)}
@@ -130,7 +130,7 @@ const Relatorio = () => {
                                             <Text style={styles.tableCell}>{item.quantidade}</Text>
                                         </View>
                                         <View style={[styles.tableCol, { width: "30vh" }]}>
-                                            <Text style={styles.tableCell}>{item.tipo === 0 ? "Engenharia" : "Normal"}</Text>
+                                            <Text style={styles.tableCell}>{item.tipo}</Text>
                                         </View>
                                     </View>
                                 </>

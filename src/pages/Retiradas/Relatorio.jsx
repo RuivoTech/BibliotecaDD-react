@@ -85,7 +85,7 @@ const Relatorio = () => {
     }, []);
 
     return (
-        <PDFViewer width="100%" height="100%" onLoadError={(error) => alert('Error while loading document! ' + error.message)}>
+        <PDFViewer width="100%" height={window.innerHeight + 'px'} onLoadError={(error) => alert('Error while loading document! ' + error.message)}>
             <Document
                 title="Relatório de livros"
                 onLoadError={(error) => alert('Error while loading document! ' + error.message)}

@@ -51,7 +51,14 @@ const FormModal = ({ show, handleShow, data }) => {
                     mensagem: "Livro cadastrado com sucesso",
                     className: "success"
                 });
-                setLivro({});
+
+                setLivro({
+                    id_livro: "",
+                    nome: "",
+                    autor: "",
+                    quantidade: "",
+                    tipo: ""
+                });
             }
         } catch (erro) {
             console.log(erro);
@@ -67,35 +74,35 @@ const FormModal = ({ show, handleShow, data }) => {
                         <div className="col-sm-2 col-lg-2">
                             <div className="form-group">
                                 <label htmlFor="id_livro">ID:</label>
-                                <input className="form-control" type="text" id="id_livro" name="id_livro" value={livro?.id_livro}
+                                <input className="form-control" type="text" id="id_livro" name="id_livro" value={livro.id_livro}
                                     disabled />
                             </div>
                         </div>
                         <div className="col-sm-10 col-lg-10">
                             <div className="form-group">
                                 <label htmlFor="nome">Nome:</label>
-                                <input className="form-control" type="text" id="nome" name="nome" value={livro?.nome}
+                                <input className="form-control" type="text" id="nome" name="nome" value={livro.nome}
                                     onChange={handeChange} />
                             </div>
                         </div>
                         <div className="col-sm-6 col-lg-6">
                             <div className="form-group">
                                 <label htmlFor="autor">Autor:</label>
-                                <input className="form-control" type="text" id="autor" name="autor" value={livro?.autor}
+                                <input className="form-control" type="text" id="autor" name="autor" value={livro.autor}
                                     onChange={handeChange} />
                             </div>
                         </div>
                         <div className="col-sm-2 col-lg-2">
                             <div className="form-group">
                                 <label htmlFor="quantidade">Quantidade:</label>
-                                <input className="form-control" type="number" id="quantidade" name="quantidade" value={livro?.quantidade}
+                                <input className="form-control" type="number" id="quantidade" name="quantidade" value={livro.quantidade}
                                     onChange={handeChange} />
                             </div>
                         </div>
                         <div className="col-sm-4 col-lg-4">
                             <div className="form-group">
                                 <label htmlFor="tipo">Tipo:</label>
-                                <select name="tipo" value={livro?.tipo} className="custom-select" onChange={handeChange} required>
+                                <select name="tipo" value={livro.tipo} className="custom-select" onChange={handeChange} required>
                                     <option>Selecione um tipo...</option>
                                     <option value="Normal">Normal</option>
                                     <option value="Engenharia">Engenharia</option>

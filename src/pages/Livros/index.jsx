@@ -95,14 +95,14 @@ const Livros = () => {
                 />
             </nav>
             <div className="mx-2 pb-5">
-                <div className="card overflow-auto align-items-center" style={{ height: "80vh" }}>
+                <div className="card overflow-hidden align-items-center" style={{ height: "76vh" }}>
                     <div className="row col-12">
-                        <Tabela data={livrosFiltrados} titulo="Livos" mostrarBotaoNovo={true} tituloBotao="Novo livro" handleShow={handleShow}>
+                        <Tabela data={livrosFiltrados} titulo="Livros" mostrarBotaoNovo={true} tituloBotao="Novo livro" handleShow={handleShow}>
                             <Coluna campo="id_livro" titulo="#" tamanho="1" />
                             <Coluna campo="nome" titulo="Nome" tamanho="10" />
                             <Coluna campo="autor" titulo="Autor" tamanho="10" />
                             <Coluna campo="quantidade" titulo="Quantidade" tamanho="3" />
-                            <Coluna campo="tipo" titulo="Tipo" tamanho="3" corpo={(item) => item.tipo === 1 ? "Normal" : "Engenharia"} />
+                            <Coluna campo="tipo" titulo="Tipo" tamanho="3" />
                             <Coluna titulo="Opções" corpo={(item) => renderOpcoes(item)} tamanho="5" />
                         </Tabela>
                         {mensagem &&

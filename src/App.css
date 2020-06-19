@@ -1,21 +1,35 @@
 * {
   box-sizing: border-box;
 }
+
+html {
+  font-size: 10px;
+}
+
 body {
-  background: #6C7A89 !important;
+  background: #6C7A89;
   min-height: 100vh;
   display: flex;
+  font-size: 16px;
   font-weight: 400;
   font-family: Roboto, Arial, Helvetica, sans-serif;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 h1,h2,h3,h4,h5,h6,label,span {
-  font-weight: 500;
+  font-size: 1.4rem;
   font-family: Ubuntu;
 }
 
-body, html, .App, #root, .auth-wrapper {
+#root {
+  min-height: 100vh;
+}
+
+.btn, .form-control, .custom-select {
+  font-size: 1.4rem;
+}
+
+.App, #root, .auth-wrapper {
   width: 100%;
   height: 100%;
 }
