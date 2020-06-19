@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
 import { HashRouter, Switch, Route } from 'react-router-dom';
+import packageJSON from "../package.json";
 
+import Manutencao from "./pages/Manutencao";
 import "./App.css";
 import { AuthContext } from "./context";
 import { onSignIn, onSignOut } from "./services/auth";
@@ -31,21 +33,25 @@ const App = () => {
 
     return (
         <>
-            <AuthContext.Provider value={authContext}>
-                <HashRouter>
-                    <Switch>
-                        <PrivateRoute path="/dashboard" component={Dashboard} />
-                        <PrivateRoute path="/livros" component={Livros} />
-                        <PrivateRoute path="/retiradas" component={Retiradas} />
-                        <PrivateRoute path="/usuarios" component={Usuarios} />
-                        <PrivateRoute path="/perfil" component={Perfil} />
-                        <Route path="/relatorio/livros/:param" component={RelatorioLivros} />
-                        <Route path="/relatorio/emBaixa" component={RelatorioDashboard} />
-                        <Route path="/relatorio/retiradas/:dataInicio/:dataFim" component={RelatorioRetiradas} />
-                        <Route exact path="/" component={Login} />
-                    </Switch>
-                </HashRouter>
-            </AuthContext.Provider>
+            {packageJSON.manutencao ?
+                <Manutencao />
+                :
+                <AuthContext.Provider value={authContext}>
+                    <HashRouter>
+                        <Switch>
+                            <PrivateRoute path="/dashboard" component={Dashboard} />
+                            <PrivateRoute path="/livros" component={Livros} />
+                            <PrivateRoute path="/retiradas" component={Retiradas} />
+                            <PrivateRoute path="/usuarios" component={Usuarios} />
+                            <PrivateRoute path="/perfil" component={Perfil} />
+                            <Route path="/relatorio/livros/:param" component={RelatorioLivros} />
+                            <Route path="/relatorio/emBaixa" component={RelatorioDashboard} />
+                            <Route path="/relatorio/retiradas/:dataInicio/:dataFim" component={RelatorioRetiradas} />
+                            <Route exact path="/" component={Login} />
+                        </Switch>
+                    </HashRouter>
+                </AuthContext.Provider>
+            }
             {window.location.hash.split("/")[1] !== "relatorio" &&
                 <Footer />}
         </>

@@ -1,7 +1,9 @@
 const Utils = {
     converteData: (rowData, coluna, formato) => {
-        let data = rowData[coluna] ? rowData[coluna] : "0000-00-00";
-        const [ano, mes, dia] = data.split("-");
+        let data = new Date(rowData[coluna]);
+        const ano = data.getFullYear();
+        const mes = data.getMonth();
+        const dia = data.getDate();
         let dataConvertida = "";
 
         switch (formato) {
